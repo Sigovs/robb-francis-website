@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/sell-your-car_robb.css">
 </head>
@@ -55,28 +55,42 @@
 
                     <div class="hero__form-col" id="acquisition-form">
                         <div class="form-card">
-                            <h2 class="form-card__heading">Get Your Offer</h2>
+                            <div class="form-card__header">
+                                <p class="eyebrow">GET YOUR OFFER</p>
+                                <h2 class="form-card__heading">Tell us about<br>your car.</h2>
+                            </div>
                             <form class="form" id="sell-form" method="POST" action="#" novalidate aria-label="Vehicle acquisition form">
 
-                                <div class="form__field">
-                                    <input class="form__input" type="number" id="f-year" name="vehicle_year" placeholder="YEAR" aria-label="Year" min="1950" max="2030" required>
-                                </div>
-                                <div class="form__field">
-                                    <input class="form__input" type="text" id="f-make" name="vehicle_make" placeholder="MAKE" aria-label="Make" required>
-                                </div>
-                                <div class="form__field">
-                                    <input class="form__input" type="text" id="f-model" name="vehicle_model" placeholder="MODEL" aria-label="Model" required>
-                                </div>
-                                <div class="form__field">
-                                    <input class="form__input" type="text" id="f-mileage" name="mileage" placeholder="MILEAGE" aria-label="Mileage" required>
-                                </div>
-                                <div class="form__field">
-                                    <input class="form__input" type="text" id="f-vin" name="vin" placeholder="VIN  (OPTIONAL)" aria-label="VIN (optional)">
+                                <div class="form__row form__row--2col">
+                                    <div class="form__field">
+                                        <label class="form__label" for="f-year">Year</label>
+                                        <input class="form__input" type="number" id="f-year" name="vehicle_year" placeholder="e.g. 2003" min="1950" max="2030" required>
+                                    </div>
+                                    <div class="form__field">
+                                        <label class="form__label" for="f-make">Make</label>
+                                        <input class="form__input" type="text" id="f-make" name="vehicle_make" placeholder="e.g. Porsche" required>
+                                    </div>
                                 </div>
 
-                                <button class="btn btn--primary btn--full" type="submit">Request My Offer</button>
+                                <div class="form__field">
+                                    <label class="form__label" for="f-model">Model</label>
+                                    <input class="form__input" type="text" id="f-model" name="vehicle_model" placeholder="e.g. 911 Carrera S" required>
+                                </div>
+
+                                <div class="form__field">
+                                    <label class="form__label" for="f-mileage">Mileage</label>
+                                    <input class="form__input" type="text" id="f-mileage" name="mileage" placeholder="e.g. 48,000" required>
+                                </div>
+
+                                <div class="form__field form__field--last">
+                                    <label class="form__label" for="f-vin">VIN <span class="form__label-opt">(optional)</span></label>
+                                    <input class="form__input" type="text" id="f-vin" name="vin">
+                                </div>
+
+                                <button class="btn btn--primary btn--full" type="submit">
+                                    Request My Offer <span class="btn__arrow" aria-hidden="true">→</span>
+                                </button>
                             </form>
-                            <p class="form-card__note">Porsche 911s, classic Jaguars &amp; Mercedes, Euro exotics, and select enthusiast performance vehicles.</p>
                         </div>
                     </div>
 
