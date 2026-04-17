@@ -529,7 +529,7 @@ input, .form__input {
     left: 0;
     right: 0;
     height: 260px;
-    background: linear-gradient(to bottom, transparent 0%, #101010 100%);
+    background: linear-gradient(to bottom, transparent 0%, #141414 100%);
     pointer-events: none;
     z-index: 1;
 }
