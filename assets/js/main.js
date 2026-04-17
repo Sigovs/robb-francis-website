@@ -1,5 +1,5 @@
 /**
- * Prestige Imports — main.js
+ * Robb Francis — main.js
  * Handles: FAQ accordion, smooth scroll, footer year
  */
 
