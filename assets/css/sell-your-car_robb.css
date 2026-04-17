@@ -35,12 +35,18 @@
     --border-base:   rgba(255, 255, 255, 0.10);
     --border-strong: rgba(255, 255, 255, 0.22);
 
-    /* Text */
+    /* Component text (dark theme — light-on-dark) */
     --text-primary:   #edeae4;
     --text-secondary: rgba(237, 234, 228, 0.58);
     --text-muted:     rgba(237, 234, 228, 0.35);
     --text-dim:       rgba(237, 234, 228, 0.18);
-    --text-eyebrow:   rgba(237, 234, 228, 0.38);
+    --text-eyebrow-color: rgba(237, 234, 228, 0.38); /* renamed — was --text-eyebrow, conflicted with size token */
+
+
+    /* Typography system colors (light-background values — requires bg update) */
+    --color-text:           #1A1A1A; /* primary near-black */
+    --color-text-secondary: #6B6B6B; /* meta, captions — WCAG AA */
+    --color-text-muted:     #555555; /* eyebrow labels */
 
     /* Spacing */
     --sp-1:  8px;
@@ -54,62 +60,173 @@
     --sp-9:  128px;
 
     /* Page */
-    --section-py: 112px;
+    --section-py: 7.5rem; /* 120px */
     --header-h:   64px;
-    --font:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* ── Typefaces ─────────────────────────────────────────── */
     --font-display: 'Instrument Serif', Georgia, serif;
+    --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* ── Type scale — desktop (base 16px = 1rem) ───────────── */
+    --text-h1:         4.5rem;    /* 72px */
+    --text-h2:         2.75rem;   /* 44px */
+    --text-h3:         1.375rem;  /* 22px */
+    --text-body-lg:    1.25rem;   /* 20px */
+    --text-body:       1.0625rem; /* 17px */
+    --text-body-sm:    0.9375rem; /* 15px */
+    --text-eyebrow:    0.75rem;   /* 12px */
+    --text-button:     0.875rem;  /* 14px */
+    --text-form-label: 0.8125rem; /* 13px */
+    --text-form-input: 1.125rem;  /* 18px */
+
+    /* ── Line heights (unitless) ────────────────────────────── */
+    --lh-h1:   1.05;
+    --lh-h2:   1.15;
+    --lh-h3:   1.3;
+    --lh-body: 1.65;
+
+    /* ── Letter spacing ─────────────────────────────────────── */
+    --ls-h1:        -0.02em;
+    --ls-h2:        -0.015em;
+    --ls-h3:        -0.01em;
+    --ls-eyebrow:    0.14em;
+    --ls-button:     0.08em;
+    --ls-form-label: 0.06em;
 }
 
 
 /* ============================================================
    PAGE BASE
-   Overrides style.css container to a tighter editorial width.
    ============================================================ */
+html { font-size: 16px; }
+
 .page-sell {
-    font-family: var(--font);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
     background-color: var(--bg-base);
-    color: var(--text-primary);
+    color: var(--text-primary); /* dark-theme override; --color-text applies on light bg */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 
 /* ============================================================
-   TYPOGRAPHY
+   TYPOGRAPHY SYSTEM — BASE ELEMENTS
+   All sizes in rem from :root tokens. No magic numbers.
+   Headings: Instrument Serif 400.
+   H3, body, UI, labels, buttons, inputs: Inter.
+   Note: component-level color rules override base element
+   colors — update component --text-* tokens when switching
+   from dark to light theme.
    ============================================================ */
+
+h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    margin: 0;
+}
+
+h1 {
+    font-size: var(--text-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    color: var(--color-text);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: var(--text-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0;
+}
+
+p {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
+    font-weight: 400;
+    max-width: 34rem; /* ~62–68ch at body size */
+    margin: 0 0 1em;
+}
+p:last-child { margin-bottom: 0; }
+
 .eyebrow {
     display: block;
-    font-size: 10px;
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
     font-weight: 500;
-    letter-spacing: 0.20em;
+    line-height: 1;
+    letter-spacing: var(--ls-eyebrow);
     text-transform: uppercase;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
     margin-bottom: var(--sp-2);
 }
 
+.btn, button {
+    font-family: var(--font-sans);
+    font-size: var(--text-button);
+    font-weight: 500;
+    letter-spacing: var(--ls-button);
+    text-transform: uppercase;
+}
+
+label, .form__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-form-label);
+    font-weight: 500;
+    letter-spacing: var(--ls-form-label);
+    text-transform: uppercase;
+}
+
+input, .form__input {
+    font-family: var(--font-sans);
+    font-size: var(--text-form-input);
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY — COMPONENT CLASSES
+   Consume tokens. Override base element defaults for
+   cases where context (color, max-width, margin) differs.
+   ============================================================ */
+
 .section__heading {
     font-family: var(--font-display);
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(1.875rem, 2.5vw + 0.5rem, var(--text-h2)); /* 30px → 44px */
     font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.01em;
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
     color: var(--text-primary);
     margin: 0;
 }
 
 .section__intro {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.78;
+    font-size: var(--text-body-lg);
+    font-weight: 400;
+    line-height: 1.55;
     color: var(--text-secondary);
     margin-top: var(--sp-3);
-    max-width: 580px;
+    max-width: 34rem;
 }
 
 .section__body {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.78;
+    font-size: var(--text-body-lg);
+    font-weight: 400;
+    line-height: 1.55;
     color: var(--text-secondary);
     margin-top: var(--sp-3);
 }
@@ -172,10 +289,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font);
-    font-size: 11px;
+    font-family: var(--font-sans);
+    font-size: var(--text-button); /* 14px */
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: var(--ls-button);
     text-transform: uppercase;
     text-decoration: none;
     border: 1px solid transparent;
@@ -284,14 +401,19 @@
     overflow: hidden;
 }
 
-/* Media slot — swap for <video autoplay muted loop playsinline> or <img> */
+/* Media slot */
 .hero__bg {
     position: absolute;
     inset: 0;
     background-color: #1a1b1f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
 }
 
 .hero__overlay {
@@ -339,21 +461,21 @@
 
 .hero__headline {
     font-family: var(--font-display);
-    font-size: clamp(48px, 6.2vw, 88px);
+    font-size: clamp(2.75rem, -0.25rem + 5.5vw, var(--text-h1)); /* 44px → 72px */
     font-weight: 400;
-    line-height: 1.0;
-    letter-spacing: -0.02em;
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
     color: var(--text-primary);
     margin: var(--sp-3) 0 var(--sp-4);
     max-width: none;
 }
 
 .hero__sub {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.78;
+    font-size: var(--text-body-lg); /* 20px */
+    font-weight: 400;
+    line-height: 1.55;
     color: var(--text-secondary);
-    max-width: 460px;
+    max-width: 34rem;
     margin-bottom: var(--sp-6);
 }
 
@@ -372,7 +494,7 @@
     font-weight: 400;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
 }
 
 .hero__meta span:not(:last-child)::after {
@@ -401,7 +523,7 @@
     font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
     order: 2;
 }
 
@@ -528,9 +650,10 @@
 
 .form__label {
     display: block;
-    font-size: 10px;
+    font-family: var(--font-sans);
+    font-size: var(--text-form-label); /* 13px */
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: var(--ls-form-label);
     text-transform: uppercase;
     color: var(--text-muted);
     margin-bottom: 9px;
@@ -549,10 +672,10 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 0;
     color: var(--text-primary);
-    font-family: var(--font);
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 0.01em;
+    font-family: var(--font-sans);
+    font-size: var(--text-form-input); /* 18px — premium feel, no squinting */
+    font-weight: 400;
+    letter-spacing: 0;
     padding: 8px 0 12px;
     width: 100%;
     transition: border-color 0.22s ease;
@@ -568,9 +691,9 @@
 
 .form__input::placeholder {
     color: rgba(237, 234, 228, 0.22);
-    font-size: 13px;
-    font-weight: 300;
-    letter-spacing: 0.01em;
+    font-size: var(--text-form-input); /* match input — no size jump on type */
+    font-weight: 400;
+    letter-spacing: 0;
 }
 
 .form__input:-webkit-autofill {
@@ -639,6 +762,13 @@
     margin-bottom: var(--sp-6);
 }
 
+.why__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 /* 2×2 editorial grid — not a SaaS feature strip.
    Each feature is a generous panel with display-scale titles. */
 .why__features {
@@ -671,27 +801,27 @@
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.16em;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
     margin-bottom: var(--sp-4);
 }
 
 .feature__title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2.2vw, 32px);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.12;
+    font-family: var(--font-sans);
+    font-size: clamp(1.25rem, 1.5vw + 0.25rem, var(--text-h3)); /* 20px → 22px */
+    font-weight: 500;
+    letter-spacing: var(--ls-h3);
+    line-height: var(--lh-h3);
     color: var(--text-primary);
     margin: 0 0 var(--sp-3);
 }
 
 .feature__text {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.75;
+    font-size: var(--text-body-sm); /* 15px */
+    font-weight: 400;
+    line-height: 1.65;
     color: var(--text-secondary);
     margin: 0;
-    max-width: 400px;
+    max-width: 34rem;
 }
 
 
@@ -735,10 +865,10 @@
 
 .section--process .section-header .section__heading {
     font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 100px);
+    font-size: clamp(2.75rem, 1rem + 5vw, 6.25rem); /* 44px → 100px — editorial oversized */
     font-weight: 400;
-    letter-spacing: -0.025em;
-    line-height: 0.94;
+    letter-spacing: var(--ls-h1);
+    line-height: var(--lh-h1);
     margin-top: var(--sp-2);
     margin-bottom: var(--sp-5);
     max-width: 860px;
@@ -797,18 +927,19 @@
 }
 
 .process-step__title {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.28;
-    letter-spacing: -0.015em;
+    font-family: var(--font-sans);
+    font-size: var(--text-body); /* 17px */
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: var(--ls-h3);
     color: var(--text-primary);
     margin: 0 0 var(--sp-2);
 }
 
 .process-step__text {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.75;
+    font-size: var(--text-body-sm); /* 15px */
+    font-weight: 400;
+    line-height: var(--lh-body);
     color: var(--text-secondary);
     margin: 0;
 }
@@ -899,7 +1030,7 @@
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.14em;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
     flex-shrink: 0;
     width: 28px;
     padding-top: 6px;
@@ -1088,13 +1219,13 @@
     align-items: start;
 }
 
-/* This heading is a brand declaration — it earns display scale */
+/* This heading earns display scale — brand declaration */
 .difference__header .section__heading {
     font-family: var(--font-display);
-    font-size: clamp(34px, 4.4vw, 64px);
+    font-size: clamp(2.125rem, 2.5vw + 1rem, 4rem); /* 34px → 64px */
     font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.04;
+    letter-spacing: var(--ls-h1);
+    line-height: var(--lh-h2);
 }
 
 .difference__body { padding-top: 4px; }
@@ -1106,11 +1237,11 @@
 }
 
 .difference__para {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.78;
+    font-size: var(--text-body); /* 17px */
+    font-weight: 400;
+    line-height: var(--lh-body);
     color: var(--text-secondary);
-    margin: 0 0 var(--sp-3);
+    margin: 0 0 1em;
 }
 .difference__para:last-child { margin-bottom: 0; }
 
@@ -1154,9 +1285,9 @@
     padding: 20px 0;
     cursor: pointer;
     user-select: none;
-    font-size: 14px;
+    font-size: var(--text-body); /* 17px */
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--ls-h3);
     line-height: 1.4;
     color: var(--text-primary);
     transition: color 0.18s;
@@ -1200,12 +1331,12 @@
 
 .faq__a {
     display: none;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.78;
+    font-size: var(--text-body-sm); /* 15px */
+    font-weight: 400;
+    line-height: var(--lh-body);
     color: var(--text-secondary);
     padding-bottom: 20px;
-    max-width: 640px;
+    max-width: 34rem;
 }
 .faq__item.is-open .faq__a { display: block; }
 
@@ -1231,10 +1362,10 @@
 
 .final-cta__heading {
     font-family: var(--font-display);
-    font-size: clamp(56px, 7.5vw, 112px);
+    font-size: clamp(3.5rem, 1.5rem + 6vw, 7rem); /* 56px → 112px */
     font-weight: 400;
-    letter-spacing: -0.025em;
-    line-height: 0.94;
+    letter-spacing: var(--ls-h1);
+    line-height: var(--lh-h1);
     color: var(--text-primary);
     margin: 0;
 }
@@ -1248,9 +1379,9 @@
 }
 
 .final-cta__body {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.75;
+    font-size: var(--text-body); /* 17px */
+    font-weight: 400;
+    line-height: var(--lh-body);
     color: var(--text-secondary);
     margin: 0;
 }
@@ -1293,7 +1424,7 @@
 
 /* Tablet */
 @media (max-width: 960px) {
-    :root { --section-py: 80px; }
+    :root { --section-py: 5rem; } /* 80px */
 
     /* Hero — stack to single column */
     .hero {
@@ -1370,9 +1501,28 @@
     .site-header__nav .nav-link { display: none; }
 }
 
+/* Mobile type token overrides — override tokens, not individual selectors */
+@media (max-width: 640px) {
+    :root {
+        --text-h1:         2.75rem;   /* 44px */
+        --text-h2:         1.875rem;  /* 30px */
+        --text-h3:         1.25rem;   /* 20px */
+        --text-body-lg:    1.125rem;  /* 18px */
+        --text-body:       1rem;      /* 16px */
+        --text-body-sm:    0.875rem;  /* 14px */
+        --text-eyebrow:    0.6875rem; /* 11px */
+        --text-form-input: 1rem;      /* 16px — prevents iOS auto-zoom */
+
+        --lh-h1: 1.08;
+        --lh-h2: 1.2;
+
+        --section-py: 4.5rem; /* 72px */
+    }
+}
+
 /* Mobile */
 @media (max-width: 600px) {
-    :root { --section-py: 64px; }
+    :root { --section-py: 4.5rem; }
 
     .hero {
         min-height: auto;
@@ -1496,16 +1646,16 @@
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.16em;
-    color: var(--text-eyebrow);
+    color: var(--text-eyebrow-color);
     text-transform: uppercase;
 }
 
 .purchased-card__name {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -0.008em;
-    line-height: 1.15;
+    font-family: var(--font-sans);
+    font-size: var(--text-body); /* 17px — H3-adjacent, Inter weight 500 */
+    font-weight: 500;
+    letter-spacing: var(--ls-h3);
+    line-height: var(--lh-h3);
     color: var(--text-primary);
     margin: 0;
 }
@@ -1622,10 +1772,10 @@
 }
 
 .review__quote {
-    font-size: 14px;
-    font-weight: 300;
+    font-size: var(--text-body-sm); /* 15px */
+    font-weight: 400;
     font-style: normal;
-    line-height: 1.78;
+    line-height: var(--lh-body);
     color: var(--text-secondary);
     margin: 0;
     flex: 1;
